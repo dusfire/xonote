@@ -1,0 +1,1280 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Xonote - Login & Sign Up</title>
+    <meta
+      name="description"
+      content="Xonote is a secure, cloud-based note-taking app with dark mode, real-time sync, and a distraction-free interface. Capture your ideas instantly. Login to continue :)"
+    />
+    <!-- Boxicons CDN Link -->
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/dusfire/icon/css/style.css"
+    />
+
+    <link
+      rel="icon"
+      type="image/png"
+      href="/assets/favicon-96x96.png"
+      sizes="96x96"
+    />
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+    <link rel="shortcut icon" href="/assets/favicon.ico" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/assets/apple-touch-icon.png"
+    />
+    <meta name="apple-mobile-web-app-title" content="XoNote" />
+    <link rel="manifest" href="/assets/site.webmanifest" />
+    <style>
+      /* ======= VARIABLES ======= */
+      :root {
+        /* Theme Colors - Light Mode Default */
+        --primary-color: #3a86ff;
+        --secondary-color: #0a66c2;
+        --bg-color: #ffffff;
+        --text-color: #333333;
+        --card-bg: #f8f9fa;
+        --input-bg: #ffffff;
+        --border-color: #e0e0e0;
+        --shadow-color: rgba(0, 0, 0, 0.1);
+        --danger-color: #e63946;
+        --success-color: #2ecc71;
+        --hover-color: #f1f3f5;
+
+        /* Border Radius */
+        --border-radius: 8px;
+
+        /* Transitions */
+        --transition-speed: 0.3s ease;
+
+        /* Font Sizes */
+        --fs-xl: 2.5rem;
+        --fs-lg: 1.8rem;
+        --fs-md: 1.2rem;
+        --fs-sm: 1rem;
+        --fs-xs: 0.875rem;
+      }
+
+      /* Dark Theme Variables */
+      body.dark-theme {
+        --primary-color: #4dabf7;
+        --secondary-color: #339af0;
+        --bg-color: #121212;
+        --text-color: #e0e0e0;
+        --card-bg: #1e1e1e;
+        --input-bg: #2d2d2d;
+        --border-color: #363636;
+        --shadow-color: rgba(0, 0, 0, 0.3);
+        --hover-color: #2d2d2d;
+      }
+
+      /* ======= RESET & GLOBAL STYLES ======= */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        line-height: 1.6;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        transition: background-color var(--transition-speed),
+          color var(--transition-speed);
+      }
+
+      a {
+        text-decoration: none;
+        color: var(--primary-color);
+        transition: color var(--transition-speed);
+      }
+
+      a:hover {
+        color: var(--secondary-color);
+      }
+
+      button {
+        cursor: pointer;
+        font-family: inherit;
+        border: none;
+        outline: none;
+      }
+
+      .hidden {
+        display: none !important;
+      }
+
+      /* ======= HEADER & NAVIGATION ======= */
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background-color: var(--bg-color);
+        box-shadow: 0 2px 10px var(--shadow-color);
+      }
+
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .logo i {
+        font-size: var(--fs-lg);
+        color: var(--primary-color);
+      }
+
+      .logo h1 {
+        font-size: var(--fs-md);
+        font-weight: 700;
+        color: var(--text-color);
+      }
+
+      .nav-items {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .theme-toggle {
+        background: transparent;
+        color: var(--text-color);
+        font-size: var(--fs-md);
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color var(--transition-speed);
+      }
+
+      .theme-toggle:hover {
+        background-color: var(--hover-color);
+      }
+
+      body.dark-theme .theme-toggle i.bx-moon {
+        transform: rotate(360deg);
+      }
+
+      body.dark-theme .theme-toggle i.bx-moon::before {
+        content: "\ec34"; /* bx-sun icon code */
+      }
+
+      .back-btn {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        background-color: transparent;
+        color: var(--text-color);
+        padding: 0.5rem;
+        border-radius: var(--border-radius);
+        font-weight: 500;
+        transition: background-color var(--transition-speed);
+      }
+
+      .back-btn:hover {
+        background-color: var(--hover-color);
+      }
+
+      .hamburger {
+        display: none;
+        font-size: var(--fs-lg);
+        cursor: pointer;
+      }
+
+      .mobile-menu {
+        display: none;
+        flex-direction: column;
+        padding: 1rem;
+        background-color: var(--bg-color);
+        border-top: 1px solid var(--border-color);
+      }
+
+      .mobile-menu button {
+        padding: 0.75rem;
+        margin-bottom: 0.5rem;
+        text-align: left;
+        border-radius: var(--border-radius);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .mobile-menu .theme-toggle {
+        width: 100%;
+        border-radius: var(--border-radius);
+        justify-content: flex-start;
+      }
+
+      .mobile-menu.active {
+        display: flex;
+      }
+
+      /* ======= MAIN CONTENT ======= */
+      main {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+      }
+
+      .auth-container {
+        width: 100%;
+        max-width: 420px;
+        padding: 2rem;
+        background-color: var(--card-bg);
+        border-radius: var(--border-radius);
+        box-shadow: 0 10px 30px var(--shadow-color);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .auth-header {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      .auth-header h2 {
+        font-size: var(--fs-lg);
+        margin-bottom: 0.5rem;
+      }
+
+      .auth-header p {
+        color: var(--text-color);
+        opacity: 0.8;
+      }
+
+      .form-toggle {
+        display: flex;
+        margin-bottom: 2rem;
+        border-radius: var(--border-radius);
+        background-color: var(--hover-color);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .form-toggle button {
+        flex: 1;
+        padding: 0.75rem;
+        background: transparent;
+        color: var(--text-color);
+        font-weight: 500;
+        z-index: 1;
+        position: relative;
+        transition: color var(--transition-speed);
+      }
+
+      .form-toggle .toggle-indicator {
+        position: absolute;
+        height: 100%;
+        width: 50%;
+        background-color: var(--primary-color);
+        top: 0;
+        left: 0;
+        border-radius: var(--border-radius);
+        transition: transform var(--transition-speed);
+      }
+
+      .form-toggle button.active {
+        color: white;
+      }
+
+      .form-toggle.signup .toggle-indicator {
+        transform: translateX(100%);
+      }
+
+      /* Forms */
+      .auth-form {
+        transition: transform 0.5s ease, opacity 0.5s ease;
+      }
+
+      .login-form {
+        transform: translateX(0);
+        opacity: 1;
+      }
+
+      .signup-form {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding: 2rem;
+        background-color: var(--card-bg);
+        transform: translateX(100%);
+        opacity: 0;
+      }
+
+      .auth-container.show-signup .login-form {
+        transform: translateX(-100%);
+        opacity: 0;
+      }
+
+      .auth-container.show-signup .signup-form {
+        transform: translateX(0);
+        opacity: 1;
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+      }
+
+      .form-input {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius);
+        background-color: var(--input-bg);
+        color: var(--text-color);
+        font-size: var(--fs-sm);
+        transition: border-color var(--transition-speed);
+      }
+
+      .form-input:focus {
+        border-color: var(--primary-color);
+      }
+
+      .password-field {
+        position: relative;
+      }
+
+      .password-toggle {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: transparent;
+        color: var(--text-color);
+        opacity: 0.7;
+        font-size: var(--fs-md);
+        cursor: pointer;
+      }
+
+      .password-toggle:hover {
+        opacity: 1;
+      }
+
+      .form-error {
+        color: var(--danger-color);
+        font-size: var(--fs-xs);
+        margin-top: 0.5rem;
+        display: none;
+      }
+
+      .form-error.active {
+        display: block;
+      }
+
+      .auth-btn {
+        width: 100%;
+        padding: 0.75rem;
+        background-color: var(--primary-color);
+        color: white;
+        font-weight: 500;
+        border-radius: var(--border-radius);
+        margin-bottom: 1rem;
+        transition: background-color var(--transition-speed);
+      }
+
+      .auth-btn:hover {
+        background-color: var(--secondary-color);
+      }
+
+      .google-btn {
+        width: 100%;
+        padding: 0.75rem;
+        background-color: white;
+        color: #4285f4;
+        font-weight: 500;
+        border-radius: var(--border-radius);
+        margin-bottom: 1rem;
+        border: 1px solid var(--border-color);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        transition: background-color var(--transition-speed);
+      }
+
+      .google-btn:hover {
+        background-color: #f1f3f5;
+      }
+
+      .google-btn i {
+        font-size: var(--fs-md);
+      }
+
+      .auth-footer {
+        text-align: center;
+        margin-top: 1.5rem;
+        font-size: var(--fs-xs);
+      }
+
+      .auth-links {
+        margin-top: 1rem;
+        text-align: center;
+      }
+
+      .reset-password-link {
+        cursor: pointer;
+        color: var(--primary-color);
+      }
+
+      .reset-password-link:hover {
+        text-decoration: underline;
+      }
+
+      /* Reset Password Form */
+      .reset-form {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        padding: 2rem;
+        background-color: var(--card-bg);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        transform: translateX(100%);
+        opacity: 0;
+        transition: transform 0.5s ease, opacity 0.5s ease;
+      }
+
+      .auth-container.show-reset .login-form,
+      .auth-container.show-reset .signup-form {
+        transform: translateX(-100%);
+        opacity: 0;
+      }
+
+      .auth-container.show-reset .reset-form {
+        transform: translateX(0);
+        opacity: 1;
+      }
+
+      .reset-form-header {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      .reset-form-header h2 {
+        font-size: var(--fs-lg);
+        margin-bottom: 0.5rem;
+      }
+
+      .reset-back-btn {
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+        background: transparent;
+        color: var(--text-color);
+        font-size: var(--fs-sm);
+        opacity: 0.7;
+        transition: opacity var(--transition-speed);
+      }
+
+      .reset-back-btn:hover {
+        opacity: 1;
+      }
+
+      /* Loading Spinner */
+      .loading-spinner {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 4000;
+      }
+
+      .spinner {
+        width: 50px;
+        height: 50px;
+        border: 4px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        border-top-color: var(--primary-color);
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Toast Notification */
+      .toast {
+        position: fixed;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: var(--card-bg);
+        color: var(--text-color);
+        padding: 1rem 1.5rem;
+        border-radius: var(--border-radius);
+        box-shadow: 0 5px 15px var(--shadow-color);
+        z-index: 3000;
+        animation: toastFadeIn 0.3s, toastFadeOut 0.3s 2.7s;
+        min-width: 250px;
+        text-align: center;
+      }
+
+      @keyframes toastFadeIn {
+        from {
+          opacity: 0;
+          transform: translate(-50%, 20px);
+        }
+        to {
+          opacity: 1;
+          transform: translate(-50%, 0);
+        }
+      }
+
+      @keyframes toastFadeOut {
+        from {
+          opacity: 1;
+          transform: translate(-50%, 0);
+        }
+        to {
+          opacity: 0;
+          transform: translate(-50%, 20px);
+        }
+      }
+
+      /* ======= FOOTER ======= */
+      footer {
+        background-color: var(--card-bg);
+        padding: 1.5rem;
+        border-top: 1px solid var(--border-color);
+      }
+
+      .footer-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .footer-logo {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .footer-logo i {
+        font-size: var(--fs-md);
+        color: var(--primary-color);
+      }
+
+      .footer-logo h2 {
+        font-size: var(--fs-md);
+        font-weight: 700;
+      }
+
+      /* ======= RESPONSIVE DESIGN ======= */
+      @media (max-width: 768px) {
+        /* Header */
+        .navbar {
+          padding: 1rem;
+        }
+
+        .nav-items {
+          display: none;
+        }
+
+        .hamburger {
+          display: block;
+        }
+
+        main {
+          padding: 1rem;
+        }
+
+        .auth-container {
+          padding: 1.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header Section -->
+    <header>
+      <nav class="navbar">
+        <div class="logo">
+          <i class="dus-cube"></i>
+          <h1>XoNote</h1>
+        </div>
+        <div class="nav-items">
+          <button id="themeToggle" class="theme-toggle">
+            <i class="bx bx-moon"></i>
+          </button>
+          <button id="backBtn" class="back-btn">
+            <i class="bx bx-arrow-back"></i> Back to Home
+          </button>
+        </div>
+        <div class="hamburger">
+          <i class="bx bx-menu"></i>
+        </div>
+      </nav>
+      <div class="mobile-menu">
+        <button id="mobileThemeToggle" class="theme-toggle">
+          <i class="bx bx-moon"></i>
+          <span>Toggle Theme</span>
+        </button>
+        <button id="mobileBackBtn" class="back-btn">
+          <i class="bx bx-arrow-back"></i> Back to Home
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+      <div id="authContainer" class="auth-container">
+        <!-- Form Toggle -->
+        <div class="form-toggle">
+          <div class="toggle-indicator"></div>
+          <button id="loginToggle" class="active">Login</button>
+          <button id="signupToggle">Sign Up</button>
+        </div>
+
+        <!-- Login Form -->
+        <form id="loginForm" class="auth-form login-form">
+          <div class="auth-header">
+            <h2>Welcome Back</h2>
+            <p>Log in to access your notes</p>
+          </div>
+
+          <div class="form-group">
+            <label for="loginEmail">Email</label>
+            <input
+              type="email"
+              id="loginEmail"
+              class="form-input"
+              placeholder="Enter your email"
+            />
+            <div id="loginEmailError" class="form-error">
+              Please enter a valid email
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="loginPassword">Password</label>
+            <div class="password-field">
+              <input
+                type="password"
+                id="loginPassword"
+                class="form-input"
+                placeholder="Enter your password"
+              />
+              <button
+                type="button"
+                class="password-toggle"
+                data-target="loginPassword"
+              >
+                <i class="bx bx-hide"></i>
+              </button>
+            </div>
+            <div id="loginPasswordError" class="form-error">
+              Please enter your password
+            </div>
+          </div>
+
+          <button type="submit" id="loginButton" class="auth-btn">Login</button>
+
+          <button type="button" id="googleLoginBtn" class="google-btn">
+            <i class="bx bxl-google"></i> Continue with Google
+          </button>
+
+          <div class="auth-links">
+            <a id="forgotPasswordLink" class="reset-password-link"
+              >Forgot Password?</a
+            >
+          </div>
+        </form>
+
+        <!-- Sign Up Form -->
+        <form id="signupForm" class="auth-form signup-form">
+          <div class="auth-header">
+            <h2>Create Account</h2>
+            <p>Sign up to start taking notes</p>
+          </div>
+
+          <div class="form-group">
+            <label for="signupEmail">Email</label>
+            <input
+              type="email"
+              id="signupEmail"
+              class="form-input"
+              placeholder="Enter your email"
+            />
+            <div id="signupEmailError" class="form-error">
+              Please enter a valid email
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="signupPassword">Password</label>
+            <div class="password-field">
+              <input
+                type="password"
+                id="signupPassword"
+                class="form-input"
+                placeholder="Create a password"
+              />
+              <button
+                type="button"
+                class="password-toggle"
+                data-target="signupPassword"
+              >
+                <i class="bx bx-hide"></i>
+              </button>
+            </div>
+            <div id="signupPasswordError" class="form-error">
+              Password must be at least 6 characters
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="confirmPassword">Confirm Password</label>
+            <div class="password-field">
+              <input
+                type="password"
+                id="confirmPassword"
+                class="form-input"
+                placeholder="Confirm your password"
+              />
+              <button
+                type="button"
+                class="password-toggle"
+                data-target="confirmPassword"
+              >
+                <i class="bx bx-hide"></i>
+              </button>
+            </div>
+            <div id="confirmPasswordError" class="form-error">
+              Passwords do not match
+            </div>
+          </div>
+
+          <button type="submit" id="signupButton" class="auth-btn">
+            Sign Up
+          </button>
+
+          <button type="button" id="googleSignupBtn" class="google-btn">
+            <i class="bx bxl-google"></i> Sign up with Google
+          </button>
+        </form>
+
+        <!-- Reset Password Form -->
+        <form id="resetForm" class="reset-form">
+          <button type="button" id="resetBackBtn" class="reset-back-btn">
+            <i class="bx bx-arrow-back"></i> Back to login
+          </button>
+
+          <div class="reset-form-header">
+            <h2>Reset Password</h2>
+            <p>Enter your email to receive a reset link</p>
+          </div>
+
+          <div class="form-group">
+            <label for="resetEmail">Email</label>
+            <input
+              type="email"
+              id="resetEmail"
+              class="form-input"
+              placeholder="Enter your email"
+            />
+            <div id="resetEmailError" class="form-error">
+              Please enter a valid email
+            </div>
+          </div>
+
+          <button type="submit" id="resetButton" class="auth-btn">
+            Send Reset Link
+          </button>
+        </form>
+      </div>
+    </main>
+
+    <!-- Loading Spinner -->
+    <div id="loadingSpinner" class="loading-spinner hidden">
+      <div class="spinner"></div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toastNotification" class="toast hidden">
+      <p id="toastMessage">Operation successful!</p>
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+      <div class="footer-content">
+        <div class="footer-logo">
+          <i class="dus-cube"></i>
+          <h2>xonote</h2>
+        </div>
+        <p>&copy; 2025 xonote. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <!-- Firebase Scripts -->
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+      import {
+        getAuth,
+        signInWithEmailAndPassword,
+        createUserWithEmailAndPassword,
+        signInWithPopup,
+        GoogleAuthProvider,
+        sendPasswordResetEmail,
+      } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyDmHhFyjz-4S_5BFja6mnrc8aNs3MMnYhc",
+        authDomain: "xonoteapp.firebaseapp.com",
+        projectId: "xonoteapp",
+        storageBucket: "xonoteapp.firebasestorage.app",
+        messagingSenderId: "6508918118",
+        appId: "1:6508918118:web:8fc29efd863a0f339884a7",
+        measurementId: "G-MQD8VX279Y",
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+      const googleProvider = new GoogleAuthProvider();
+
+      // DOM Elements
+      const authContainer = document.getElementById("authContainer");
+      const loginToggle = document.getElementById("loginToggle");
+      const signupToggle = document.getElementById("signupToggle");
+
+      const loginForm = document.getElementById("loginForm");
+      const loginEmail = document.getElementById("loginEmail");
+      const loginPassword = document.getElementById("loginPassword");
+      const loginEmailError = document.getElementById("loginEmailError");
+      const loginPasswordError = document.getElementById("loginPasswordError");
+      const loginButton = document.getElementById("loginButton");
+      const googleLoginBtn = document.getElementById("googleLoginBtn");
+
+      const signupForm = document.getElementById("signupForm");
+      const signupEmail = document.getElementById("signupEmail");
+      const signupPassword = document.getElementById("signupPassword");
+      const confirmPassword = document.getElementById("confirmPassword");
+      const signupEmailError = document.getElementById("signupEmailError");
+      const signupPasswordError = document.getElementById(
+        "signupPasswordError"
+      );
+      const confirmPasswordError = document.getElementById(
+        "confirmPasswordError"
+      );
+      const signupButton = document.getElementById("signupButton");
+      const googleSignupBtn = document.getElementById("googleSignupBtn");
+
+      const forgotPasswordLink = document.getElementById("forgotPasswordLink");
+      const resetForm = document.getElementById("resetForm");
+      const resetBackBtn = document.getElementById("resetBackBtn");
+      const resetEmail = document.getElementById("resetEmail");
+      const resetEmailError = document.getElementById("resetEmailError");
+      const resetButton = document.getElementById("resetButton");
+
+      const themeToggle = document.getElementById("themeToggle");
+      const mobileThemeToggle = document.getElementById("mobileThemeToggle");
+      const hamburgerBtn = document.querySelector(".hamburger");
+      const mobileMenu = document.querySelector(".mobile-menu");
+
+      const backBtn = document.getElementById("backBtn");
+      const mobileBackBtn = document.getElementById("mobileBackBtn");
+
+      const loadingSpinner = document.getElementById("loadingSpinner");
+      const toastNotification = document.getElementById("toastNotification");
+      const toastMessage = document.getElementById("toastMessage");
+
+      // Authentication Functions
+      async function handleLogin(e) {
+        e.preventDefault();
+
+        // Validate form
+        let isValid = true;
+
+        if (!validateEmail(loginEmail.value)) {
+          loginEmailError.classList.add("active");
+          isValid = false;
+        } else {
+          loginEmailError.classList.remove("active");
+        }
+
+        if (loginPassword.value.length < 1) {
+          loginPasswordError.classList.add("active");
+          isValid = false;
+        } else {
+          loginPasswordError.classList.remove("active");
+        }
+
+        if (!isValid) return;
+
+        showLoading();
+
+        try {
+          await signInWithEmailAndPassword(
+            auth,
+            loginEmail.value,
+            loginPassword.value
+          );
+          showToast("Login successful!");
+          setTimeout(() => {
+            window.location.href = "https://dusfire.github.io/xonote/";
+          }, 1000);
+        } catch (error) {
+          hideLoading();
+          showToast("Login failed: " + getAuthErrorMessage(error.code));
+        }
+      }
+
+      async function handleSignup(e) {
+        e.preventDefault();
+
+        // Validate form
+        let isValid = true;
+
+        if (!validateEmail(signupEmail.value)) {
+          signupEmailError.classList.add("active");
+          isValid = false;
+        } else {
+          signupEmailError.classList.remove("active");
+        }
+
+        if (signupPassword.value.length < 6) {
+          signupPasswordError.classList.add("active");
+          isValid = false;
+        } else {
+          signupPasswordError.classList.remove("active");
+        }
+
+        if (confirmPassword.value !== signupPassword.value) {
+          confirmPasswordError.classList.add("active");
+          isValid = false;
+        } else {
+          confirmPasswordError.classList.remove("active");
+        }
+
+        if (!isValid) return;
+
+        showLoading();
+
+        try {
+          await createUserWithEmailAndPassword(
+            auth,
+            signupEmail.value,
+            signupPassword.value
+          );
+          showToast("Account created successfully!");
+          setTimeout(() => {
+            window.location.href = "https://dusfire.github.io/xonote/";
+          }, 1000);
+        } catch (error) {
+          hideLoading();
+          showToast("Sign up failed: " + getAuthErrorMessage(error.code));
+        }
+      }
+
+      async function handleGoogleAuth() {
+        showLoading();
+
+        try {
+          await signInWithPopup(auth, googleProvider);
+          showToast("Login successful!");
+          setTimeout(() => {
+            window.location.href = "https://dusfire.github.io/xonote/";
+          }, 1000);
+        } catch (error) {
+          hideLoading();
+          showToast(
+            "Google sign in failed: " + getAuthErrorMessage(error.code)
+          );
+        }
+      }
+
+      async function handleResetPassword(e) {
+        e.preventDefault();
+
+        // Validate email
+        if (!validateEmail(resetEmail.value)) {
+          resetEmailError.classList.add("active");
+          return;
+        } else {
+          resetEmailError.classList.remove("active");
+        }
+
+        showLoading();
+
+        try {
+          await sendPasswordResetEmail(auth, resetEmail.value);
+          hideLoading();
+          showToast("Reset link sent! Check your email inbox.");
+          authContainer.classList.remove("show-reset");
+        } catch (error) {
+          hideLoading();
+          showToast(
+            "Password reset failed: " + getAuthErrorMessage(error.code)
+          );
+        }
+      }
+
+      // UI Interaction Functions
+      function toggleLoginSignup() {
+        loginToggle.addEventListener("click", () => {
+          if (!loginToggle.classList.contains("active")) {
+            loginToggle.classList.add("active");
+            signupToggle.classList.remove("active");
+            authContainer.classList.remove("show-signup");
+          }
+        });
+
+        signupToggle.addEventListener("click", () => {
+          if (!signupToggle.classList.contains("active")) {
+            signupToggle.classList.add("active");
+            loginToggle.classList.remove("active");
+            authContainer.classList.add("show-signup");
+          }
+        });
+      }
+
+      function setupPasswordToggles() {
+        const toggleButtons = document.querySelectorAll(".password-toggle");
+
+        toggleButtons.forEach((button) => {
+          button.addEventListener("click", () => {
+            const targetId = button.getAttribute("data-target");
+            const passwordInput = document.getElementById(targetId);
+            const icon = button.querySelector("i");
+
+            if (passwordInput.type === "password") {
+              passwordInput.type = "text";
+              icon.classList.remove("bx-hide");
+              icon.classList.add("bx-show");
+            } else {
+              passwordInput.type = "password";
+              icon.classList.remove("bx-show");
+              icon.classList.add("bx-hide");
+            }
+          });
+        });
+      }
+
+      function setupResetPassword() {
+        forgotPasswordLink.addEventListener("click", () => {
+          authContainer.classList.add("show-reset");
+          resetEmail.value = loginEmail.value;
+        });
+
+        resetBackBtn.addEventListener("click", () => {
+          authContainer.classList.remove("show-reset");
+        });
+      }
+
+      function setupThemeToggle() {
+        // Check for saved theme preference
+        const savedTheme = localStorage.getItem("theme");
+        if (savedTheme === "dark") {
+          document.body.classList.add("dark-theme");
+        }
+
+        // Toggle theme
+        function toggleTheme() {
+          document.body.classList.toggle("dark-theme");
+
+          // Save theme preference to localStorage
+          if (document.body.classList.contains("dark-theme")) {
+            localStorage.setItem("theme", "dark");
+          } else {
+            localStorage.setItem("theme", "light");
+          }
+        }
+
+        themeToggle.addEventListener("click", toggleTheme);
+        mobileThemeToggle.addEventListener("click", toggleTheme);
+      }
+
+      function setupMobileMenu() {
+        hamburgerBtn.addEventListener("click", () => {
+          mobileMenu.classList.toggle("active");
+        });
+      }
+
+      function setupBackButtons() {
+        backBtn.addEventListener("click", () => {
+          window.location.href = "https://dusfire.github.io/xonote/";
+        });
+
+        mobileBackBtn.addEventListener("click", () => {
+          window.location.href = "https://dusfire.github.io/xonote/";
+        });
+      }
+
+      // Utility Functions
+      function validateEmail(email) {
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return regex.test(email);
+      }
+
+      function showLoading() {
+        loadingSpinner.classList.remove("hidden");
+      }
+
+      function hideLoading() {
+        loadingSpinner.classList.add("hidden");
+      }
+
+      function showToast(message) {
+        toastMessage.textContent = message;
+        toastNotification.classList.remove("hidden");
+
+        // Hide toast after 3 seconds
+        setTimeout(() => {
+          toastNotification.classList.add("hidden");
+        }, 3000);
+      }
+
+      function getAuthErrorMessage(errorCode) {
+        switch (errorCode) {
+          case "auth/invalid-email":
+            return "The email address is not valid.";
+          case "auth/user-disabled":
+            return "This account has been disabled.";
+          case "auth/user-not-found":
+            return "No account found with this email.";
+          case "auth/wrong-password":
+            return "Incorrect password.";
+          case "auth/email-already-in-use":
+            return "This email is already in use.";
+          case "auth/weak-password":
+            return "Password should be at least 6 characters.";
+          case "auth/popup-closed-by-user":
+            return "Sign in was cancelled.";
+          case "auth/operation-not-allowed":
+            return "This operation is not allowed.";
+          case "auth/network-request-failed":
+            return "Network error. Check your connection.";
+          default:
+            return "An error occurred. Please try again.";
+        }
+      }
+
+      // Function to remove .html extension and handle routing
+      function removeHTMLExtension() {
+        // Don't execute if no .html in URL
+        if (!location.href.includes(".html")) return;
+
+        let path = window.location.pathname;
+        let cleanPath = path.replace(/\.html$/, "");
+
+        // Update URL without page reload
+        window.history.replaceState(null, "", cleanPath);
+      }
+
+      // Function to handle clicks on internal links
+      function handleLinks() {
+        document.addEventListener("click", function (e) {
+          // Find closest anchor tag
+          const link = e.target.closest("a");
+
+          // If not a link or external link, ignore
+          if (!link || !link.href.includes(window.location.origin)) return;
+
+          // If link ends with .html
+          if (link.href.endsWith(".html")) {
+            e.preventDefault();
+
+            // Remove .html and navigate
+            const cleanUrl = link.href.replace(/\.html$/, "");
+            window.history.pushState(null, "", cleanUrl);
+
+            // Handle the actual navigation
+            fetch(link.href)
+              .then((response) => response.text())
+              .then((html) => {
+                document.documentElement.innerHTML = html;
+                // Reinitialize any necessary scripts
+                removeHTMLExtension();
+                handleLinks();
+              });
+          }
+        });
+      }
+
+      // Initialize when DOM is ready
+      document.addEventListener("DOMContentLoaded", function () {
+        removeHTMLExtension();
+        handleLinks();
+      });
+
+      // Handle browser back/forward buttons
+      window.addEventListener("popstate", function () {
+        location.reload();
+      });
+      // Hide .html End
+
+      // Initialize
+      document.addEventListener("DOMContentLoaded", () => {
+        // Set up event listeners
+        loginForm.addEventListener("submit", handleLogin);
+        signupForm.addEventListener("submit", handleSignup);
+        resetForm.addEventListener("submit", handleResetPassword);
+
+        googleLoginBtn.addEventListener("click", handleGoogleAuth);
+        googleSignupBtn.addEventListener("click", handleGoogleAuth);
+
+        toggleLoginSignup();
+        setupPasswordToggles();
+        setupResetPassword();
+        setupThemeToggle();
+        setupMobileMenu();
+        setupBackButtons();
+      });
+    </script>
+  </body>
+</html>

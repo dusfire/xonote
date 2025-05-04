@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="description"
+      content="Xonote is a secure, cloud-based note-taking app with dark mode, real-time sync, and a distraction-free interface. Capture your ideas instantly."
+    />
+    <meta
+      name="keywords"
+      content="note taking, notes app, cloud notes, secure notes, Xonote, productivity, dark mode, dus fire, dusfire github, dus mamud"
+    />
+    <meta name="author" content="Xonote" />
+    <meta name="robots" content="index, follow" />
+    <meta name="language" content="English" />
+    <title>XoNote - Simple Note Taking App</title>
+    <!-- Boxicons CDN Link -->
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/dusfire/icon/css/style.css"
+    />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- Favicons and App Icons -->
+    <link
+      rel="icon"
+      type="image/png"
+      href="assets/favicon-96x96.png"
+      sizes="96x96"
+    />
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+    <link rel="shortcut icon" href="assets/favicon.ico" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="assets/apple-touch-icon.png"
+    />
+    <meta name="apple-mobile-web-app-title" content="XoNote" />
+    <link rel="manifest" href="assets/site.webmanifest" />
+
+    <!-- Basic Meta Tags -->
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://dusfire.github.io/xonote/" />
+
+    <!-- Open Graph / Facebook Meta Tags -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://dusfire.github.io/xonote/" />
+    <meta property="og:title" content="Xonote - Modern Note-Taking App" />
+    <meta
+      property="og:description"
+      content="Capture your ideas with Xonote's clean, distraction-free note-taking app. Cloud sync, dark mode, and secure storage."
+    />
+    <meta
+      property="og:image"
+      content="https://dusfire.github.io/xonote/assets/og-image.png"
+    />
+    <meta property="og:image:alt" content="Xonote app interface" />
+    <meta property="og:site_name" content="Xonote" />
+
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://dusfire.github.io/xonote/" />
+    <meta name="twitter:title" content="Xonote - Modern Note-Taking App" />
+    <meta
+      name="twitter:description"
+      content="Capture your ideas with Xonote's clean, distraction-free note-taking app. Cloud sync, dark mode, and secure storage."
+    />
+    <meta
+      name="twitter:image"
+      content="https://dusfire.github.io/xonote/assets/web-app-manifest-512x512.png"
+    />
+    <meta name="twitter:creator" content="@xonote_app" />
+
+    <!-- Mobile App Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <meta name="apple-mobile-web-app-title" content="Xonote" />
+    <meta name="application-name" content="Xonote" />
+    <meta name="msapplication-TileColor" content="#4f46e5" />
+    <meta name="theme-color" content="#4f46e5" />
+    <meta name="msapplication-navbutton-color" content="#4f46e5" />
+
+    <!-- Preconnect to Essential Domains -->
+    <link rel="preconnect" href="https://www.gstatic.com" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+
+    <!-- Other Meta Information -->
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="google" content="notranslate" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta name="color-scheme" content="light dark" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://dusfire.github.io/xonote/#home",
+            "url": "https://dusfire.github.io/xonote/",
+            "name": "Xonote",
+            "description": "Cloud-based note taking app with dark mode and real-time sync",
+            "publisher": {
+              "@id": "https://dusfire.github.io/xonote/#organization"
+            },
+            "potentialAction": [
+              {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://dusfire.github.io/xonote/search?q={search_term_string}"
+                },
+                "query-input": "required name=search_term_string"
+              }
+            ],
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "Organization",
+            "@id": "https://dusfire.github.io/xonote/#organization",
+            "name": "Xonote",
+            "url": "https://dusfire.github.io/xonote/",
+            "logo": {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "url": "https://dusfire.github.io/xonote/assets/web-app-manifest-512x512.png",
+              "contentUrl": "https://dusfire.github.io/xonote/assets/web-app-manifest-512x512.png",
+              "width": 512,
+              "height": 512,
+              "caption": "Xonote Logo"
+            },
+            "image": {
+              "@id": "https://dusfire.github.io/xonote/#logo"
+            },
+            "sameAs": [
+              "https://twitter.com/xonote_app",
+              "https://www.facebook.com/xonoteapp",
+              "https://www.linkedin.com/company/xonote"
+            ]
+          },
+          {
+            "@type": "SoftwareApplication",
+            "name": "Xonote",
+            "operatingSystem": "Web, iOS, Android",
+            "applicationCategory": "ProductivityApplication",
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "INR"
+            },
+            "aggregateRating": {
+              "@type": "AggregateRating",
+              "ratingValue": "4.8",
+              "ratingCount": "1024"
+            },
+            "description": "Xonote is a secure, cloud-based note-taking app with dark mode, real-time sync, and a distraction-free interface. Capture your ideas instantly.",
+            "screenshot": "https://dusfire.github.io/xonote/app-screenshot.png",
+            "featureList": "Cloud synchronization, Dark mode, Secure storage, Mobile friendly interface, Real-time updates",
+            "downloadUrl": "https://dusfire.github.io/xonote/download",
+            "author": {
+              "@id": "https://dusfire.github.io/xonote/#organization"
+            },
+            "publisher": {
+              "@id": "https://dusfire.github.io/xonote/#organization"
+            }
+          },
+          {
+            "@type": "WebPage",
+            "@id": "https://dusfire.github.io/xonote/#webpage",
+            "url": "https://dusfire.github.io/xonote/",
+            "name": "Xonote - Cloud-based Note Taking App",
+            "isPartOf": {
+              "@id": "https://dusfire.github.io/xonote/#website"
+            },
+            "about": {
+              "@id": "https://dusfire.github.io/xonote/#organization"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://dusfire.github.io/xonote/#primaryimage"
+            },
+            "image": {
+              "@id": "https://dusfire.github.io/xonote/#primaryimage"
+            },
+            "thumbnailUrl": "https://dusfire.github.io/xonote/assets/og-image.png",
+            "datePublished": "2025-05-01T00:00:00+00:00",
+            "dateModified": "2025-05-05T00:00:00+00:00",
+            "description": "Xonote is a secure, cloud-based note-taking app with dark mode, real-time sync, and a distraction-free interface. Capture your ideas instantly.",
+            "breadcrumb": {
+              "@id": "https://dusfire.github.io/xonote/#breadcrumb"
+            },
+            "inLanguage": "en-US",
+            "potentialAction": [
+              {
+                "@type": "ReadAction",
+                "target": ["https://dusfire.github.io/xonote/"]
+              }
+            ]
+          },
+          {
+            "@type": "ImageObject",
+            "inLanguage": "en-US",
+            "@id": "https://dusfire.github.io/xonote/#primaryimage",
+            "url": "https://dusfire.github.io/xonote/XO.png",
+            "contentUrl": "https://dusfire.github.io/xonote/XO.png",
+            "width": 1200,
+            "height": 630,
+            "caption": "Xonote - Modern note taking app"
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://dusfire.github.io/xonote/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Login"
+              }
+            ]
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <!-- Header Section -->
+    <header>
+      <nav class="navbar">
+        <div class="logo">
+          <i class="dus-cube"></i>
+          <h1>XoNote</h1>
+        </div>
+        <div class="nav-items">
+          <button id="themeToggle" class="theme-toggle">
+            <i class="bx bx-moon"></i>
+          </button>
+          <button id="loginBtn" class="login-btn">
+            <i class="bx bx-log-in"></i> Login
+          </button>
+          <div id="userMenu" class="user-menu hidden">
+            <button id="accountBtn" class="account-btn">
+              <i class="bx bx-user"></i> Account
+            </button>
+            <button id="logoutBtn" class="logout-btn danger">
+              <i class="bx bx-log-out"></i> Logout
+            </button>
+          </div>
+        </div>
+        <div class="hamburger">
+          <i class="bx bx-menu"></i>
+        </div>
+      </nav>
+      <div class="mobile-menu">
+        <button id="mobileThemeToggle" class="theme-toggle">
+          <i class="bx bx-moon"></i>
+          <span>Switch Theme</span>
+        </button>
+        <button id="mobileLoginBtn" class="login-btn">
+          <i class="dus-log-in"></i> Login
+        </button>
+        <button id="mobileAccountBtn" class="account-btn hidden">
+          <i class="bx bx-user"></i>
+          Account
+        </button>
+        <button id="mobileLogoutBtn" class="logout-btn hidden danger">
+          <i class="dus-log-in"></i> Logout
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+      <!-- Hero Section (visible when not logged in) -->
+      <section id="heroSection" class="hero">
+        <div class="hero-content">
+          <h1>Capture Your Ideas, Organize Your Life</h1>
+          <p>
+            A simple and elegant way to take notes and keep your thoughts
+            organized. Access your notes from anywhere, anytime.
+          </p>
+          <button id="getStartedBtn" class="cta-btn">
+            <i class="dus-rocket"></i> Get Started
+          </button>
+        </div>
+        <div class="hero-image">
+          <img src="XO.png" alt="Xonote App illustration" />
+        </div>
+      </section>
+
+      <!-- Overview Section (visible when not logged in) -->
+      <section id="overviewSection" class="overview">
+        <h2>Why Choose Xonote?</h2>
+        <div class="features">
+          <div class="feature-card">
+            <i class="bx bx-lock-alt"></i>
+            <h3>Secure</h3>
+            <p>
+              Your notes are private and secure. Only you can access them with
+              your account.
+            </p>
+          </div>
+          <div class="feature-card">
+            <i class="bx bx-cloud"></i>
+            <h3>Cloud Storage</h3>
+            <p>
+              Your notes are saved to the cloud, so you can access them from any
+              device.
+            </p>
+          </div>
+          <div class="feature-card">
+            <i class="bx bx-palette"></i>
+            <h3>Customizable</h3>
+            <p>Choose between light and dark themes to suit your preference.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Note Section (visible when logged in) -->
+      <section id="noteSection" class="note-section hidden">
+        <div class="section-header">
+          <h2>My Notes</h2>
+        </div>
+
+        <div class="note-form">
+          <input type="text" id="noteTitle" placeholder="Note Title" />
+          <textarea
+            id="noteContent"
+            placeholder="Write your note here..."
+          ></textarea>
+          <button id="saveNoteBtn" class="save-btn">
+            <i class="bx bx-paper-plane"></i> Save Note
+          </button>
+        </div>
+
+        <div class="notes-container">
+          <div id="notesGrid" class="notes-grid">
+            <!-- Notes will be added here dynamically -->
+            <div class="empty-notes-message">
+              <i class="dus-speaker_notes_off"></i>
+              <p>You don't have any notes yet. Create your first note!</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Fullscreen Note View -->
+    <div id="fullScreenNote" class="fullscreen-note hidden">
+      <div class="fullscreen-header">
+        <h2 id="fullScreenNoteTitle">Note Title</h2>
+        <div class="fullscreen-actions">
+          <button id="editNoteBtn" class="icon-btn">
+            <i class="bx bx-edit"></i>
+          </button>
+          <button id="deleteNoteBtn" class="icon-btn">
+            <i class="bx bx-trash"></i>
+          </button>
+          <button id="closeFullScreenBtn" class="icon-btn">
+            <i class="bx bx-x"></i>
+          </button>
+        </div>
+      </div>
+      <div class="fullscreen-content">
+        <div id="fullScreenNoteContent" class="note-content"></div>
+        <div id="fullScreenNoteTimestamp" class="note-timestamp"></div>
+      </div>
+    </div>
+
+    <!-- User Settings Modal -->
+    <div id="userSettingsModal" class="modal hidden">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Account Settings</h2>
+          <button id="closeSettingsBtn" class="icon-btn">
+            <i class="bx bx-x"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="user-profile">
+            <img
+              id="userProfilePic"
+              src="https://placehold.co/100x100"
+              alt="Profile Picture"
+            />
+            <p id="userEmail">user@example.com</p>
+          </div>
+          <div class="settings-actions">
+            <button id="resetPasswordBtn" class="settings-btn">
+              <i class="bx bx-lock-open-alt"></i>
+              Reset Password
+            </button>
+            <button id="deleteAccountBtn" class="settings-btn danger">
+              <i class="bx bx-user-x"></i>
+              Delete Account
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmationModal" class="modal hidden">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 id="confirmationTitle">Confirm Action</h2>
+          <button id="closeConfirmationBtn" class="icon-btn">
+            <i class="bx bx-x"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p id="confirmationMessage">
+            Are you sure you want to perform this action?
+          </p>
+          <div class="confirmation-buttons">
+            <button id="cancelActionBtn" class="cancel-btn">Cancel</button>
+            <button id="confirmActionBtn" class="confirm-btn">Confirm</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div id="loadingSpinner" class="loading-spinner hidden">
+      <div class="spinner"></div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toastNotification" class="toast hidden">
+      <p id="toastMessage">Operation successful!</p>
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+      <div class="footer-content">
+        <div class="footer-logo">
+          <i class="dus-cube"></i>
+          <h2>xonote</h2>
+        </div>
+        <p>&copy; 2025 xonote. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <div id="welcomeXo"></div>
+
+    <!-- Firebase Scripts -->
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-analytics.js";
+
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyDmHhFyjz-4S_5BFja6mnrc8aNs3MMnYhc",
+        authDomain: "xonoteapp.firebaseapp.com",
+        projectId: "xonoteapp",
+        storageBucket: "xonoteapp.firebasestorage.app",
+        messagingSenderId: "6508918118",
+        appId: "1:6508918118:web:8fc29efd863a0f339884a7",
+        measurementId: "G-MQD8VX279Y",
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+
+      // Export the Firebase app to make it available to the script
+      window.firebaseApp = app;
+    </script>
+
+    <!-- Main App Script -->
+    <script type="module" src="script.js"></script>
+    <script src="welcome.js"></script>
+  </body>
+</html>

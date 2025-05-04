@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>404 - Page Not Found | Xonote</title>
+    <style>
+      /* Reset and base styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+          sans-serif;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        background-color: #f9fafb;
+        color: #1f2937;
+        line-height: 1.5;
+        padding: 20px;
+      }
+
+      /* Dark mode support */
+      @media (prefers-color-scheme: dark) {
+        body {
+          background-color: #111827;
+          color: #f9fafb;
+        }
+      }
+
+      .container {
+        text-align: center;
+        max-width: 500px;
+        width: 100%;
+      }
+
+      .error-code {
+        font-size: 120px;
+        font-weight: 700;
+        line-height: 1;
+        margin-bottom: 16px;
+        background: linear-gradient(135deg, #4f46e5 0%, #60a5fa 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        color: transparent;
+      }
+
+      .error-message {
+        font-size: 24px;
+        font-weight: 600;
+        margin-bottom: 24px;
+      }
+
+      .error-description {
+        font-size: 16px;
+        opacity: 0.8;
+        margin-bottom: 40px;
+      }
+
+      .home-button {
+        display: inline-block;
+        background: linear-gradient(135deg, #4f46e5 0%, #3730a3 100%);
+        color: white;
+        padding: 14px 28px;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 16px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        border: none;
+        cursor: pointer;
+        box-shadow: 0 4px 14px rgba(79, 70, 229, 0.3);
+      }
+
+      .home-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(79, 70, 229, 0.4);
+      }
+
+      .home-button:active {
+        transform: translateY(0);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="error-code">404</h1>
+      <h2 class="error-message">Page Not Found</h2>
+      <p class="error-description">
+        The page you are looking for might have been removed, had its name
+        changed, or is temporarily unavailable.
+      </p>
+      <a href="https://dusfire.github.io/xonote/" class="home-button"
+        >Back to Home</a
+      >
+    </div>
+    <script>
+      // Function to remove .html extension and handle routing
+      function removeHTMLExtension() {
+        // Don't execute if no .html in URL
+        if (!location.href.includes(".html")) return;
+
+        let path = window.location.pathname;
+        let cleanPath = path.replace(/\.html$/, "");
+
+        // Update URL without page reload
+        window.history.replaceState(null, "", cleanPath);
+      }
+
+      // Function to handle clicks on internal links
+      function handleLinks() {
+        document.addEventListener("click", function (e) {
+          // Find closest anchor tag
+          const link = e.target.closest("a");
+
+          // If not a link or external link, ignore
+          if (!link || !link.href.includes(window.location.origin)) return;
+
+          // If link ends with .html
+          if (link.href.endsWith(".html")) {
+            e.preventDefault();
+
+            // Remove .html and navigate
+            const cleanUrl = link.href.replace(/\.html$/, "");
+            window.history.pushState(null, "", cleanUrl);
+
+            // Handle the actual navigation
+            fetch(link.href)
+              .then((response) => response.text())
+              .then((html) => {
+                document.documentElement.innerHTML = html;
+                // Reinitialize any necessary scripts
+                removeHTMLExtension();
+                handleLinks();
+              });
+          }
+        });
+      }
+
+      // Initialize when DOM is ready
+      document.addEventListener("DOMContentLoaded", function () {
+        removeHTMLExtension();
+        handleLinks();
+      });
+
+      // Handle browser back/forward buttons
+      window.addEventListener("popstate", function () {
+        location.reload();
+      });
+      // Hide .html End
+    </script>
+  </body>
+</html>
